@@ -1,0 +1,35 @@
+table {
+	text-align: center;
+	width: 100%;
+}
+td {
+	width: 33%;
+}
+.ui-myrange {
+	margin: 10px;
+}
+.ui-myicon {
+	margin: 0;
+	padding: 0;
+	width: 99%;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+.leftForward {
+	background-image: url(../img/arrow-u-l-black.svg);
+}
+.forward {
+	background-image: url(../img/arrow-u-black.svg);
+}
+.rightForward {
+	background-image: url(../img/arrow-u-r-black.svg);
+}
+.leftBackward {
+	background-image: url(../img/arrow-d-l-black.svg);
+}
+.backward {
+	background-image: url(../img/arrow-d-black.svg);
+}
+.rightBackward {
+	background-image: url(../img/arrow-d-r-black.svg);
+}

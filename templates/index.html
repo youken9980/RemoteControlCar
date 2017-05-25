@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<!--自适应界面,如果出现,在某些设备出现界面偏小的话,检查一下有没有加入这句 -->
+	<meta http-equiv="Content-type" name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width">
+	<title>Index</title>
+	<link rel="stylesheet" href="../static/css/jquery.mobile-1.4.5.min.css">
+	<link rel="stylesheet" href="../static/css/main.css">
+	<script src="../static/js/jquery-2.0.3.min.js"></script>
+	<script src="../static/js/jquery.mobile-1.4.5.min.js"></script>
+	<script src="../static/js/main.js"></script>
+</head>
+<body ontouchmove="event.preventDefault()" ontouchstart="event.stopPropagation()">
+	<div class="ui-myrange">
+		<input type="range" name="speed" min="0" max="100" value="100" />
+	</div>
+	<table border="0" cellSpacing="10" cellPadding="0">
+		<tr>
+			<td>
+				<div class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-myicon leftForward">
+					<input type="hidden" name="direction" value="turnLeftForward" />
+				</div>
+			</td>
+			<td>
+				<div class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-myicon forward">
+					<input type="hidden" name="direction" value="goForward" />
+				</div>
+			</td>
+			<td>
+				<div class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-myicon rightForward">
+					<input type="hidden" name="direction" value="turnRightForward" />
+				</div>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<div class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-myicon leftBackward">
+					<input type="hidden" name="direction" value="turnLeftBackward" />
+				</div>
+			</td>
+			<td>
+				<div class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-myicon backward">
+					<input type="hidden" name="direction" value="goBackward" />
+				</div>
+			</td>
+			<td>
+				<div class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-myicon rightBackward">
+					<input type="hidden" name="direction" value="turnRightBackward" />
+				</div>
+			</td>
+		</tr>
+	</table>
+</body>
+</html>
