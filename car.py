@@ -18,14 +18,14 @@ class Car:
     TURN_RATIO_DEFAULT = 0.25
 
     def __init__(self, enA, inA1, inA2, enB, inB1, inB2, turnRatio):
-        self.go = {
-            Car.GO_FORWARD: self.goForward,
-            Car.TURN_LEFT_FORWARD: self.turnLeftForward,
-            Car.TURN_RIGHT_FORWARD: self.turnRightForward,
-            Car.GO_BACKWARD: self.goBackward,
-            Car.TURN_LEFT_BACKWARD: self.turnLeftBackward,
-            Car.TURN_RIGHT_BACKWARD: self.turnRightBackward
-        }
+        # self.go = {
+        #     Car.GO_FORWARD: self.goForward,
+        #     Car.TURN_LEFT_FORWARD: self.turnLeftForward,
+        #     Car.TURN_RIGHT_FORWARD: self.turnRightForward,
+        #     Car.GO_BACKWARD: self.goBackward,
+        #     Car.TURN_LEFT_BACKWARD: self.turnLeftBackward,
+        #     Car.TURN_RIGHT_BACKWARD: self.turnRightBackward
+        # }
         GPIO.setwarnings(False)
         GPIO.setmode(GPIO.BOARD)
         self.leftWheel = Wheel(enA, inA1, inA2)

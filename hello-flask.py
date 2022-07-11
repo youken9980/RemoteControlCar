@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+from wsgiref.simple_server import make_server
 from flask import Flask, render_template, request
 from car import Car
 
@@ -40,7 +41,8 @@ def go():
 
 if __name__ == "__main__":
     try:
-        app.run(host="0.0.0.0", port=80, debug=True)
+        server = make_server('0.0.0.0', 8080, app)
+        server.serve_forever()
     except KeyboardInterrupt:
         pass
     finally:
