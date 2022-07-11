@@ -19,12 +19,12 @@ class Car:
 
 	def __init__(self, enA, inA1, inA2, enB, inB1, inB2, turnRatio):
 		self.go = {
-			Car.GO_FORWARD: self.__goForward,
-			Car.TURN_LEFT_FORWARD: self.__turnLeftForward,
-			Car.TURN_RIGHT_FORWARD: self.__turnRightForward,
-			Car.GO_BACKWARD: self.__goBackward,
-			Car.TURN_LEFT_BACKWARD: self.__turnLeftBackward,
-			Car.TURN_RIGHT_BACKWARD: self.__turnRightBackward
+			Car.GO_FORWARD: self.goForward,
+			Car.TURN_LEFT_FORWARD: self.turnLeftForward,
+			Car.TURN_RIGHT_FORWARD: self.turnRightForward,
+			Car.GO_BACKWARD: self.goBackward,
+			Car.TURN_LEFT_BACKWARD: self.turnLeftBackward,
+			Car.TURN_RIGHT_BACKWARD: self.turnRightBackward
 		}
 		GPIO.setwarnings(False)
 		GPIO.setmode(GPIO.BOARD)
@@ -43,29 +43,29 @@ class Car:
 		self.leftWheel.reset()
 		self.rightWheel.reset()
 
-	def __goForward(self, speed):
-		self.__go(Car.GO_FORWARD, Wheel.FORWARD, speed, speed)
+	def goForward(self, speed):
+		self.go(Car.GO_FORWARD, Wheel.FORWARD, speed, speed)
 
-	def __turnLeftForward(self, speed):
+	def turnLeftForward(self, speed):
 		ratioSpeed = float(speed) * self.turnRatio
-		self.__go(Car.TURN_LEFT_FORWARD, Wheel.FORWARD, ratioSpeed, speed)
+		self.go(Car.TURN_LEFT_FORWARD, Wheel.FORWARD, ratioSpeed, speed)
 
-	def __turnRightForward(self, speed):
+	def turnRightForward(self, speed):
 		ratioSpeed = float(speed) * self.turnRatio
-		self.__go(Car.TURN_RIGHT_FORWARD, Wheel.FORWARD, speed, ratioSpeed)
+		self.go(Car.TURN_RIGHT_FORWARD, Wheel.FORWARD, speed, ratioSpeed)
 
-	def __goBackward(self, speed):
-		self.__go(Car.GO_BACKWARD, Wheel.BACKWARD, speed, speed)
+	def goBackward(self, speed):
+		self.go(Car.GO_BACKWARD, Wheel.BACKWARD, speed, speed)
 
-	def __turnLeftBackward(self, speed):
+	def turnLeftBackward(self, speed):
 		ratioSpeed = float(speed) * self.turnRatio
-		self.__go(Car.TURN_LEFT_BACKWARD, Wheel.BACKWARD, ratioSpeed, speed)
+		self.go(Car.TURN_LEFT_BACKWARD, Wheel.BACKWARD, ratioSpeed, speed)
 
-	def __turnRightBackward(self, speed):
+	def turnRightBackward(self, speed):
 		ratioSpeed = float(speed) * self.turnRatio
-		self.__go(Car.TURN_RIGHT_BACKWARD, Wheel.BACKWARD, speed, ratioSpeed)
+		self.go(Car.TURN_RIGHT_BACKWARD, Wheel.BACKWARD, speed, ratioSpeed)
 
-	def __go(self, carDirection, wheelDirection, leftSpeed, rightSpeed):
+	def go(self, carDirection, wheelDirection, leftSpeed, rightSpeed):
 		print(carDirection, ", leftSpeed: ", leftSpeed, ", rightSpeed: ", rightSpeed)
 		self.leftWheel.go[wheelDirection](leftSpeed)
 		self.rightWheel.go[wheelDirection](rightSpeed)

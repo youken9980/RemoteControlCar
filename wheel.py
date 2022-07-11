@@ -14,8 +14,8 @@ class Wheel:
 
 	def __init__(self, en, in1, in2):
 		self.go = {
-			Wheel.FORWARD: self.__forward,
-			Wheel.BACKWARD: self.__backward
+			Wheel.FORWARD: self.forward,
+			Wheel.BACKWARD: self.backward
 		}
 		self.en = en
 		self.in1 = in1
@@ -30,15 +30,15 @@ class Wheel:
 		self.pwmEn.stop()
 
 	def reset(self):
-		self.__changeStatus(0, GPIO.LOW, GPIO.LOW)
+		self.changeStatus(0, GPIO.LOW, GPIO.LOW)
 
-	def __forward(self, speed):
-		self.__changeStatus(speed, GPIO.HIGH, GPIO.LOW)
+	def forward(self, speed):
+		self.changeStatus(speed, GPIO.HIGH, GPIO.LOW)
 
-	def __backward(self, speed):
-		self.__changeStatus(speed, GPIO.LOW, GPIO.HIGH)
+	def backward(self, speed):
+		self.changeStatus(speed, GPIO.LOW, GPIO.HIGH)
 
-	def __changeStatus(self, speed, in1Status, in2Status):
+	def changeStatus(self, speed, in1Status, in2Status):
 		dc = Wheel.SPEED_MIN if speed < Wheel.SPEED_MIN else speed
 		dc = Wheel.SPEED_MAX if speed > Wheel.SPEED_MAX else speed
 		self.pwmEn.ChangeDutyCycle(dc)
