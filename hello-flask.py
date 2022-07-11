@@ -36,7 +36,6 @@ def go():
         mycar.go[direction](speed)
     except KeyError:
         pass
-    # return
     return ""
 
 if __name__ == "__main__":
