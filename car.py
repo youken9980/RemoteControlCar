@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 import RPi.GPIO as GPIO
@@ -34,7 +34,7 @@ class Car:
 		self.turnRatio = turnRatio if turnRatio < Car.TURN_RATIO_MAX else Car.TURN_RATIO_DEFAULT
 
 	def cleanup(self):
-		print "clearup."
+		print("clearup.")
 		self.leftWheel.stop()
 		self.rightWheel.stop()
 		GPIO.cleanup()
@@ -66,6 +66,6 @@ class Car:
 		self.__go(Car.TURN_RIGHT_BACKWARD, Wheel.BACKWARD, speed, ratioSpeed)
 
 	def __go(self, carDirection, wheelDirection, leftSpeed, rightSpeed):
-		print carDirection, ", leftSpeed: ", leftSpeed, ", rightSpeed: ", rightSpeed
+		print(carDirection, ", leftSpeed: ", leftSpeed, ", rightSpeed: ", rightSpeed)
 		self.leftWheel.go[wheelDirection](leftSpeed)
 		self.rightWheel.go[wheelDirection](rightSpeed)

@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 from flask import Flask, render_template, request
@@ -28,7 +28,7 @@ def go():
 		direction = request.args.get("direction", "reset")
 		speed = request.args.get("speed", 0)
 		stack = request.args.get("stack", "")
-	print "Stack: { ", stack, " }"
+	print("Stack: { ", stack, " }")
 	# control
 	mycar.allReset()
 	try:
