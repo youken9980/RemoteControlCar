@@ -6,41 +6,41 @@ import time
 
 class Wheel:
 
-	FORWARD = "forward"
-	BACKWARD = "backward"
-	FREQUENCY = 50
-	SPEED_MIN = 0
-	SPEED_MAX = 100
+    FORWARD = "forward"
+    BACKWARD = "backward"
+    FREQUENCY = 50
+    SPEED_MIN = 0
+    SPEED_MAX = 100
 
-	def __init__(self, en, in1, in2):
-		self.go = {
-			Wheel.FORWARD: self.forward,
-			Wheel.BACKWARD: self.backward
-		}
-		self.en = en
-		self.in1 = in1
-		self.in2 = in2
-		GPIO.setup(en, GPIO.OUT)
-		GPIO.setup(in1, GPIO.OUT)
-		GPIO.setup(in2, GPIO.OUT)
-		self.pwmEn = GPIO.PWM(en, Wheel.FREQUENCY)
-		self.pwmEn.start(0)
+    def __init__(self, en, in1, in2):
+        self.go = {
+            Wheel.FORWARD: self.forward,
+            Wheel.BACKWARD: self.backward
+        }
+        self.en = en
+        self.in1 = in1
+        self.in2 = in2
+        GPIO.setup(en, GPIO.OUT)
+        GPIO.setup(in1, GPIO.OUT)
+        GPIO.setup(in2, GPIO.OUT)
+        self.pwmEn = GPIO.PWM(en, Wheel.FREQUENCY)
+        self.pwmEn.start(0)
 
-	def stop(self):
-		self.pwmEn.stop()
+    def stop(self):
+        self.pwmEn.stop()
 
-	def reset(self):
-		self.changeStatus(0, GPIO.LOW, GPIO.LOW)
+    def reset(self):
+        self.changeStatus(0, GPIO.LOW, GPIO.LOW)
 
-	def forward(self, speed):
-		self.changeStatus(speed, GPIO.HIGH, GPIO.LOW)
+    def forward(self, speed):
+        self.changeStatus(speed, GPIO.HIGH, GPIO.LOW)
 
-	def backward(self, speed):
-		self.changeStatus(speed, GPIO.LOW, GPIO.HIGH)
+    def backward(self, speed):
+        self.changeStatus(speed, GPIO.LOW, GPIO.HIGH)
 
-	def changeStatus(self, speed, in1Status, in2Status):
-		dc = Wheel.SPEED_MIN if speed < Wheel.SPEED_MIN else speed
-		dc = Wheel.SPEED_MAX if speed > Wheel.SPEED_MAX else speed
-		self.pwmEn.ChangeDutyCycle(dc)
-		GPIO.output(self.in1, in1Status)
-		GPIO.output(self.in2, in2Status)
+    def changeStatus(self, speed, in1Status, in2Status):
+        dc = Wheel.SPEED_MIN if speed < Wheel.SPEED_MIN else speed
+        dc = Wheel.SPEED_MAX if speed > Wheel.SPEED_MAX else speed
+        self.pwmEn.ChangeDutyCycle(dc)
+        GPIO.output(self.in1, in1Status)
+        GPIO.output(self.in2, in2Status)

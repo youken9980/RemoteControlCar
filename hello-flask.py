@@ -16,32 +16,32 @@ mycar = Car(ENA, IN3, IN4, ENB, IN1, IN2, Car.TURN_RATIO_DEFAULT)
 
 @app.route("/")
 def index():
-	return render_template("index.html")
+    return render_template("index.html")
 
 @app.route("/go", methods=("GET", "POST"))
 def go():
-	if request.method == "POST":
-		direction = request.values.get("direction", "reset")
-		speed = request.values.get("speed", 0)
-		stack = request.values.get("stack", "")
-	else:
-		direction = request.args.get("direction", "reset")
-		speed = request.args.get("speed", 0)
-		stack = request.args.get("stack", "")
-	print("Stack: { ", stack, " }")
-	# control
-	mycar.allReset()
-	try:
-		mycar.go[direction](speed)
-	except KeyError:
-		pass
-	# return
-	return ""
+    if request.method == "POST":
+        direction = request.values.get("direction", "reset")
+        speed = request.values.get("speed", 0)
+        stack = request.values.get("stack", "")
+    else:
+        direction = request.args.get("direction", "reset")
+        speed = request.args.get("speed", 0)
+        stack = request.args.get("stack", "")
+    print("Stack: { ", stack, " }")
+    # control
+    mycar.allReset()
+    try:
+        mycar.go[direction](speed)
+    except KeyError:
+        pass
+    # return
+    return ""
 
 if __name__ == "__main__":
-	try:
-		app.run(host="0.0.0.0", port=80, debug=True)
-	except KeyboardInterrupt:
-		pass
-	finally:
-		mycar.cleanup()
+    try:
+        app.run(host="0.0.0.0", port=80, debug=True)
+    except KeyboardInterrupt:
+        pass
+    finally:
+        mycar.cleanup()
