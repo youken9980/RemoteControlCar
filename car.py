@@ -3,21 +3,21 @@
 
 from wheel import Wheel
 
-wheel_left_front_en = 12
-wheel_left_front_in1 = 1
-wheel_left_front_in2 = 2
+wheel_left_front_enb = 18
+wheel_left_front_in3 = 23
+wheel_left_front_in4 = 24
 
-wheel_left_rear_en = 13
-wheel_left_rear_in1 = 3
-wheel_left_rear_in2 = 4
+wheel_left_rear_ena = 13
+wheel_left_rear_in1 = 17
+wheel_left_rear_in2 = 27
 
-wheel_right_front_en = 18
+wheel_right_front_ena = 12
 wheel_right_front_in1 = 5
 wheel_right_front_in2 = 6
 
-wheel_right_rear_en = 19
-wheel_right_rear_in1 = 7
-wheel_right_rear_in2 = 8
+wheel_right_rear_enb = 19
+wheel_right_rear_in4 = 20
+wheel_right_rear_in3 = 21
 
 
 class Car:
@@ -32,10 +32,10 @@ class Car:
             Car.GO_FORWARD: self.go_forward,
             Car.GO_BACKWARD: self.go_backward,
         }
-        self.wheel_left_front = Wheel(wheel_left_front_en, wheel_left_front_in1, wheel_left_front_in2)
-        self.wheel_left_rear = Wheel(wheel_left_rear_en, wheel_left_rear_in1, wheel_left_rear_in2)
-        self.wheel_right_front = Wheel(wheel_right_front_en, wheel_right_front_in1, wheel_right_front_in2)
-        self.wheel_right_rear = Wheel(wheel_right_rear_en, wheel_right_rear_in1, wheel_right_rear_in2)
+        self.wheel_left_front = Wheel(wheel_left_front_enb, wheel_left_front_in3, wheel_left_front_in4)
+        self.wheel_left_rear = Wheel(wheel_left_rear_ena, wheel_left_rear_in1, wheel_left_rear_in2)
+        self.wheel_right_front = Wheel(wheel_right_front_ena, wheel_right_front_in1, wheel_right_front_in2)
+        self.wheel_right_rear = Wheel(wheel_right_rear_enb, wheel_right_rear_in4, wheel_right_rear_in3)
 
     def cleanup(self):
         print("car cleanup.")
