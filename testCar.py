@@ -4,41 +4,22 @@
 import time
 from car import Car
 
-ENA = 40
-IN1 = 38
-IN2 = 36
-IN3 = 37
-IN4 = 35
-ENB = 33
-mycar = Car(ENA, IN3, IN4, ENB, IN1, IN2, 0)
+my_car = Car()
 
 try:
     speed = 100
-    interval = 1.5
-    mycar.goForward(speed)
-    time.sleep(interval)
-    mycar.allReset()
-    time.sleep(interval)
-    mycar.turnLeftForward(speed)
-    time.sleep(interval)
-    mycar.allReset()
-    time.sleep(interval)
-    mycar.turnRightForward(speed)
-    time.sleep(interval)
-    mycar.allReset()
-    time.sleep(interval)
-    mycar.goBackward(speed)
-    time.sleep(interval)
-    mycar.allReset()
-    time.sleep(interval)
-    mycar.turnLeftBackward(speed)
-    time.sleep(interval)
-    mycar.allReset()
-    time.sleep(interval)
-    mycar.turnRightBackward(speed)
-    time.sleep(interval)
-    mycar.allReset()
+
+    my_car.go_forward(speed)
+    time.sleep(5)
+    my_car.all_suspend()
+    time.sleep(1.5)
+
+    my_car.go_backward(speed)
+    time.sleep(5)
+    my_car.all_suspend()
+    time.sleep(1.5)
+
 except KeyboardInterrupt:
     pass
 finally:
-    mycar.cleanup()
+    my_car.cleanup()

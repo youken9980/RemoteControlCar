@@ -5,19 +5,14 @@ from wsgiref.simple_server import make_server
 from flask import Flask, render_template, request
 from car import Car
 
-ENA = 40
-IN1 = 38
-IN2 = 36
-IN3 = 37
-IN4 = 35
-ENB = 33
-
 app = Flask(__name__)
-mycar = Car(ENA, IN3, IN4, ENB, IN1, IN2, Car.TURN_RATIO_DEFAULT)
+my_car = Car()
+
 
 @app.route("/")
 def index():
     return render_template("index.html")
+
 
 @app.route("/go", methods=("GET", "POST"))
 def go():
@@ -31,12 +26,13 @@ def go():
         stack = request.args.get("stack", "")
     print("Stack: { ", stack, " }")
     # control
-    mycar.allReset()
+    my_car.all_suspend()
     try:
-        mycar.go[direction](speed)
+        my_car.go[direction](speed)
     except KeyError:
         pass
     return ""
+
 
 if __name__ == "__main__":
     try:
@@ -45,4 +41,4 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
         pass
     finally:
-        mycar.cleanup()
+        my_car.cleanup()

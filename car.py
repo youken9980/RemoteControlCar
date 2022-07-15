@@ -1,71 +1,78 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import RPi.GPIO as GPIO
-import time
 from wheel import Wheel
 
-class Car:
+wheel_left_front_en = 12
+wheel_left_front_in1 = 1
+wheel_left_front_in2 = 2
 
+wheel_left_rear_en = 13
+wheel_left_rear_in1 = 3
+wheel_left_rear_in2 = 4
+
+wheel_right_front_en = 18
+wheel_right_front_in1 = 5
+wheel_right_front_in2 = 6
+
+wheel_right_rear_en = 19
+wheel_right_rear_in1 = 7
+wheel_right_rear_in2 = 8
+
+
+class Car:
     GO_FORWARD = "goForward"
-    TURN_LEFT_FORWARD = "turnLeftForward"
-    TURN_RIGHT_FORWARD = "turnRightForward"
     GO_BACKWARD = "goBackward"
-    TURN_LEFT_BACKWARD = "turnLeftBackward"
-    TURN_RIGHT_BACKWARD = "turnRightBackward"
     TURN_RATIO_MIN = 0
     TURN_RATIO_MAX = 1
     TURN_RATIO_DEFAULT = 0.25
 
-    def __init__(self, enA, inA1, inA2, enB, inB1, inB2, turnRatio):
+    def __init__(self):
         self.go = {
-            Car.GO_FORWARD: self.goForward,
-            Car.TURN_LEFT_FORWARD: self.turnLeftForward,
-            Car.TURN_RIGHT_FORWARD: self.turnRightForward,
-            Car.GO_BACKWARD: self.goBackward,
-            Car.TURN_LEFT_BACKWARD: self.turnLeftBackward,
-            Car.TURN_RIGHT_BACKWARD: self.turnRightBackward
+            Car.GO_FORWARD: self.go_forward,
+            Car.GO_BACKWARD: self.go_backward,
         }
-        GPIO.setwarnings(False)
-        GPIO.setmode(GPIO.BOARD)
-        self.leftWheel = Wheel(enA, inA1, inA2)
-        self.rightWheel = Wheel(enB, inB1, inB2)
-        self.turnRatio = turnRatio if turnRatio >= Car.TURN_RATIO_MIN else Car.TURN_RATIO_DEFAULT
-        self.turnRatio = turnRatio if turnRatio < Car.TURN_RATIO_MAX else Car.TURN_RATIO_DEFAULT
+        self.wheel_left_front = Wheel(wheel_left_front_en, wheel_left_front_in1, wheel_left_front_in2)
+        self.wheel_left_rear = Wheel(wheel_left_rear_en, wheel_left_rear_in1, wheel_left_rear_in2)
+        self.wheel_right_front = Wheel(wheel_right_front_en, wheel_right_front_in1, wheel_right_front_in2)
+        self.wheel_right_rear = Wheel(wheel_right_rear_en, wheel_right_rear_in1, wheel_right_rear_in2)
 
     def cleanup(self):
-        print("clearup.")
-        self.leftWheel.stop()
-        self.rightWheel.stop()
-        GPIO.cleanup()
+        print("car cleanup.")
+        self.wheel_left_front.cleanup()
+        self.wheel_left_rear.cleanup()
+        self.wheel_right_front.cleanup()
+        self.wheel_right_rear.cleanup()
 
-    def allReset(self):
-        self.leftWheel.reset()
-        self.rightWheel.reset()
+    def all_suspend(self):
+        self.wheel_left_front.suspend()
+        self.wheel_left_rear.suspend()
+        self.wheel_right_front.suspend()
+        self.wheel_right_rear.suspend()
 
-    def goForward(self, speed):
-        self.__go(Car.GO_FORWARD, Wheel.FORWARD, speed, speed)
+    def go_forward(self, speed):
+        car_direction = Car.GO_FORWARD
+        wheel_left_front_direction = Wheel.FORWARD
+        wheel_left_rear_direction = Wheel.FORWARD
+        wheel_right_front_direction = Wheel.FORWARD
+        wheel_right_rear_direction = Wheel.FORWARD
+        left_speed = speed
+        right_speed = speed
+        self.__go(car_direction, wheel_left_front_direction, wheel_left_rear_direction, wheel_right_front_direction, wheel_right_rear_direction, left_speed, right_speed)
 
-    def turnLeftForward(self, speed):
-        ratioSpeed = float(speed) * self.turnRatio
-        self.__go(Car.TURN_LEFT_FORWARD, Wheel.FORWARD, ratioSpeed, speed)
+    def go_backward(self, speed):
+        car_direction = Car.GO_BACKWARD
+        wheel_left_front_direction = Wheel.BACKWARD
+        wheel_left_rear_direction = Wheel.BACKWARD
+        wheel_right_front_direction = Wheel.BACKWARD
+        wheel_right_rear_direction = Wheel.BACKWARD
+        left_speed = speed
+        right_speed = speed
+        self.__go(car_direction, wheel_left_front_direction, wheel_left_rear_direction, wheel_right_front_direction, wheel_right_rear_direction, left_speed, right_speed)
 
-    def turnRightForward(self, speed):
-        ratioSpeed = float(speed) * self.turnRatio
-        self.__go(Car.TURN_RIGHT_FORWARD, Wheel.FORWARD, speed, ratioSpeed)
-
-    def goBackward(self, speed):
-        self.__go(Car.GO_BACKWARD, Wheel.BACKWARD, speed, speed)
-
-    def turnLeftBackward(self, speed):
-        ratioSpeed = float(speed) * self.turnRatio
-        self.__go(Car.TURN_LEFT_BACKWARD, Wheel.BACKWARD, ratioSpeed, speed)
-
-    def turnRightBackward(self, speed):
-        ratioSpeed = float(speed) * self.turnRatio
-        self.__go(Car.TURN_RIGHT_BACKWARD, Wheel.BACKWARD, speed, ratioSpeed)
-
-    def __go(self, carDirection, wheelDirection, leftSpeed, rightSpeed):
-        print(carDirection, ", leftSpeed: ", leftSpeed, ", rightSpeed: ", rightSpeed)
-        self.leftWheel.go[wheelDirection](leftSpeed)
-        self.rightWheel.go[wheelDirection](rightSpeed)
+    def __go(self, car_direction, wheel_left_front_direction, wheel_left_rear_direction, wheel_right_front_direction, wheel_right_rear_direction, left_speed, right_speed):
+        print(car_direction, ", left_speed: ", left_speed, ", right_speed: ", right_speed)
+        self.wheel_left_front.go[wheel_left_front_direction](left_speed)
+        self.wheel_left_rear.go[wheel_left_rear_direction](left_speed)
+        self.wheel_right_front.go[wheel_right_front_direction](right_speed)
+        self.wheel_right_rear.go[wheel_right_rear_direction](right_speed)
