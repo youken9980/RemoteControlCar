@@ -16,13 +16,15 @@ wheel_right_front_in1 = 5
 wheel_right_front_in2 = 6
 
 wheel_right_rear_enb = 19
-wheel_right_rear_in4 = 20
 wheel_right_rear_in3 = 21
+wheel_right_rear_in4 = 20
 
 
 class Car:
     GO_FORWARD = "goForward"
     GO_BACKWARD = "goBackward"
+    MOVE_LEFT = "moveLeft"
+    MOVE_RIGHT = "moveRight"
     TURN_RATIO_MIN = 0
     TURN_RATIO_MAX = 1
     TURN_RATIO_DEFAULT = 0.25
@@ -31,6 +33,8 @@ class Car:
         self.go = {
             Car.GO_FORWARD: self.go_forward,
             Car.GO_BACKWARD: self.go_backward,
+            Car.MOVE_LEFT: self.move_left,
+            Car.MOVE_RIGHT: self.move_right,
         }
         self.wheel_left_front = Wheel(wheel_left_front_enb, wheel_left_front_in3, wheel_left_front_in4)
         self.wheel_left_rear = Wheel(wheel_left_rear_ena, wheel_left_rear_in1, wheel_left_rear_in2)
@@ -66,6 +70,26 @@ class Car:
         wheel_left_rear_direction = Wheel.BACKWARD
         wheel_right_front_direction = Wheel.BACKWARD
         wheel_right_rear_direction = Wheel.BACKWARD
+        left_speed = speed
+        right_speed = speed
+        self.__go(car_direction, wheel_left_front_direction, wheel_left_rear_direction, wheel_right_front_direction, wheel_right_rear_direction, left_speed, right_speed)
+
+    def move_left(self, speed):
+        car_direction = Car.MOVE_LEFT
+        wheel_left_front_direction = Wheel.BACKWARD
+        wheel_left_rear_direction = Wheel.FORWARD
+        wheel_right_front_direction = Wheel.FORWARD
+        wheel_right_rear_direction = Wheel.BACKWARD
+        left_speed = speed
+        right_speed = speed
+        self.__go(car_direction, wheel_left_front_direction, wheel_left_rear_direction, wheel_right_front_direction, wheel_right_rear_direction, left_speed, right_speed)
+
+    def move_right(self, speed):
+        car_direction = Car.MOVE_RIGHT
+        wheel_left_front_direction = Wheel.FORWARD
+        wheel_left_rear_direction = Wheel.BACKWARD
+        wheel_right_front_direction = Wheel.BACKWARD
+        wheel_right_rear_direction = Wheel.FORWARD
         left_speed = speed
         right_speed = speed
         self.__go(car_direction, wheel_left_front_direction, wheel_left_rear_direction, wheel_right_front_direction, wheel_right_rear_direction, left_speed, right_speed)
